@@ -1,22 +1,41 @@
 // src/modules/counter.js
 
-// 초기 상태값(객체, 배열, 원시데이터 0,1,2도 가능)
-const initialState = {
-  number: 0, //깩체로 변수에 값을 할당해주었음, 여러개도 가능
+// 추가된 코드 👇 - 액션 value를 상수들로 만들어 줍니다. 보통 이렇게 한곳에 모여있습니다.
+const PLUS_ONE = "PLUS_ONE";
+const MINUS_ONE = "MINUS_ONE";
+
+// 추가된 코드 👇 - 'Action Creator'를 만들어 줍니다.
+export const plusOne = () => {
+  return {
+    type: PLUS_ONE,
+  };
 };
 
-// reducer(리듀서) : 변화를 일으키는 함수
+export const minusOne = () => {
+  return {
+    type: MINUS_ONE,
+  };
+};
+
+// 초기 상태값
+const initialState = {
+  number: 0,
+};
+
+// 리듀서
 const counter = (state = initialState, action) => {
-  //state는 initialState고 action을 넘겨준다.
   switch (action.type) {
-    case "PLUS_ONE":
-      return { number: state.number + 1 };
-    case "MINUS_ONE":
-      return { number: state.number - 1 };
+    case PLUS_ONE: // case에서도 문자열이 아닌, 위에서 선언한 상수를 넣어줍니다.
+      return {
+        number: state.number + 1,
+      };
+    case MINUS_ONE: // case에서도 문자열이 아닌, 위에서 선언한 상수를 넣어줍니다.
+      return {
+        number: state.number - 1,
+      };
     default:
-      return state; //??없어져도 실행됨, 콘솔은안되는데 콘솔문제인가?
+      return state;
   }
 };
 
-// 모듈파일에서는 리듀서를 export default 한다.
 export default counter;
